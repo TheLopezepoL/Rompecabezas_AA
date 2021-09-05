@@ -1,6 +1,7 @@
 package basics;
 
 public class Piece {
+    // Fija el numero mayor que puede tener una cara de la pieza (del 0 al 9)
     private static final int MAX_NUM = 9;
 
     private int upperSide;
@@ -21,7 +22,7 @@ public class Piece {
         setDownSide(downSide);
         setLeftSide(leftSide);
     }
-
+    // Si recibe un -1 se le asignara un random, caso contrario se asigna el valor indicado.
     private void setUpperSide(int upperSide) {
         if (upperSide != -1)
             this.upperSide = upperSide;
@@ -29,6 +30,7 @@ public class Piece {
             this.upperSide = RandGenerator.randInt(0, MAX_NUM);
     }
 
+    // Si recibe un -1 se le asignara un random, caso contrario se asigna el valor indicado.
     private void setRightSide(int rightSide) {
         if (rightSide != -1)
             this.rightSide = rightSide;
@@ -36,6 +38,7 @@ public class Piece {
             this.rightSide = RandGenerator.randInt(0, MAX_NUM);
     }
 
+    // Si recibe un -1 se le asignara un random, caso contrario se asigna el valor indicado.
     private void setDownSide(int downSide) {
         if (downSide != -1)
             this.downSide = downSide;
@@ -43,6 +46,7 @@ public class Piece {
             this.downSide = RandGenerator.randInt(0, MAX_NUM);
     }
 
+    // Si recibe un -1 se le asignara un random, caso contrario se asigna el valor indicado.
     private void setLeftSide(int leftSide) {
         if (leftSide != -1)
             this.leftSide = leftSide;

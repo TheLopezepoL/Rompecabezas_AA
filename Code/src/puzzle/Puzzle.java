@@ -4,6 +4,7 @@ import basics.*;
 import java.util.Arrays;
 
 public class Puzzle {
+    // Tamaño de la matriz (5x5)
     private static final int SIZE = 5;
 
     private Piece[][] puzzle;
@@ -12,6 +13,7 @@ public class Puzzle {
         this.puzzle = new Piece[SIZE][SIZE];
     }
 
+    // Completa el rompecabezas con al menos 1 solucion posible
     public void fillPuzzle() {
         for (int column = 0; column < SIZE; column++) {
             for (int row = 0; row < SIZE; row++) {
@@ -26,6 +28,7 @@ public class Puzzle {
         }
     }
 
+    // Revuelve las piezas del puzzle
     public void shufflePuzzle() {
         Piece[][] tempPuzzle = new Piece[SIZE][SIZE];
         for (int column = 0; column < SIZE; column++) {
@@ -42,6 +45,7 @@ public class Puzzle {
         puzzle = tempPuzzle;
     }
 
+    // Print del puzzle
     public void printPuzzle() {
         for (int column = 0; column < SIZE; column++) {
             for (int row = 0; row < SIZE; row++) {
