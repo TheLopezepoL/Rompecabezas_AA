@@ -7,17 +7,18 @@ import java.util.ArrayList;
 
 public class PuzzleResolver {
 
-    private ArrayList<Piece> unasignedPieces = new ArrayList<>();
+    private final ArrayList<Piece> unsignedPieces = new ArrayList<>();
+    private final ArrayList<Probability> probabilities = new ArrayList<>();
+    private final Puzzle puzzle = new Puzzle();
     private int[][] countPieces;
-    private Puzzle puzzle = new Puzzle();
     private int needUp;
     private int needLeft;
-    private ArrayList<Probability> probabilities = new ArrayList<>();
+
 
     public PuzzleResolver(Puzzle puzzle) {
         for (int column = 0; column < Puzzle.SIZE; column++) {
             for (int row = 0; row < Puzzle.SIZE; row++) {
-                unasignedPieces.add(puzzle.getPuzzle()[column][row]);
+                unsignedPieces.add(puzzle.getPuzzle()[column][row]);
             }
         }
         countPieces = new int[Piece.MAX_NUM][4];
@@ -37,7 +38,4 @@ public class PuzzleResolver {
     // Este algoritmo crea una probabilidad segun countPieces con la formula que escribi
     public void setProbs(){}
 
-    
-    
-    
 }
