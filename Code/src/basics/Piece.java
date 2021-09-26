@@ -2,7 +2,7 @@ package basics;
 
 public class Piece {
     // Fija el numero mayor que puede tener una cara de la pieza (del 0 al 9)
-    private static final int MAX_NUM = 9;
+    public static final int MAX_NUM = 9;
 
     private int upperSide;
     private int rightSide;
@@ -11,6 +11,7 @@ public class Piece {
 
 
     private boolean used;
+    private int prob;
 
 
     public Piece() {
@@ -19,6 +20,7 @@ public class Piece {
         this.downSide = -1;
         this.leftSide = -1;
         this.used = false;
+        this.prob = 0;
     }
 
     public Piece(int upperSide, int rightSide, int downSide, int leftSide, boolean used) {
@@ -27,6 +29,11 @@ public class Piece {
         setDownSide(downSide);
         setLeftSide(leftSide);
         this.used = used;
+        this.prob = 0;
+    }
+
+    public boolean hasMatch(int valueUp, int valueLeft) {
+        return ((valueUp == -1 || upperSide == valueUp) && (valueLeft == -1 || leftSide == valueLeft));
     }
 
     // Si recibe un -1 se le asignara un random, caso contrario se asigna el valor indicado.
@@ -71,7 +78,6 @@ public class Piece {
         this.used = false;
     }
 
-
     public boolean getUsed(){
         return used;
     }
@@ -91,8 +97,6 @@ public class Piece {
     public int getLeftSide() {
         return leftSide;
     }
-
-
 
     public int[] getSides(){
         return new int[]{getUpperSide(), getRightSide(), getDownSide(), getLeftSide()};

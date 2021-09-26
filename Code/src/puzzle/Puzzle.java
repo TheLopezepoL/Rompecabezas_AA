@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class Puzzle {
     // Tamaño de la matriz (5x5)
-    private static final int SIZE = 3;
+    public static final int SIZE = 3;
 
     private Piece[][] puzzle;
     private Piece[][] bruteForceSolve;
@@ -13,6 +13,10 @@ public class Puzzle {
     public Puzzle() {
         this.puzzle = new Piece[SIZE][SIZE];
         this.bruteForceSolve = new Piece[SIZE][SIZE];
+    }
+
+    public Piece[][] getPuzzle() {
+        return puzzle;
     }
 
     // Completa el rompecabezas con al menos 1 solucion posible

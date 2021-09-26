@@ -16,9 +16,9 @@ public class Main {
         System.out.println("\nDesordenar puzzle");
         obj.printPuzzle();
 
-        System.out.println("\nBrute force");
-        obj.bruteForce(0,0);
-        obj.printBruteForce();
+        //System.out.println("\nBrute force");
+        //obj.bruteForce(0,0);
+        //obj.printBruteForce();
 
 
 
