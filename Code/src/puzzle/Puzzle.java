@@ -68,7 +68,7 @@ public class Puzzle {
                                 ((y == 0) || (bruteForceSolve[x][y - 1].getDownSide() == puzzle[column][row].getUpperSide() ))) {
 
                             bruteForceSolve[x][y] = puzzle[column][row];
-                            puzzle[column][row].setTrue();
+                            puzzle[column][row].setUsed();
 
                             // y = row
                             int new_y = y;
@@ -84,7 +84,7 @@ public class Puzzle {
                             if ( bruteForce(new_x, new_y) ) {
                                 return true;
                             }
-                            puzzle[column][row].setFalse();
+                            puzzle[column][row].setUnused();
                         }
                     }
                 }

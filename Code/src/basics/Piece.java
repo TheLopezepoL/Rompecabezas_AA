@@ -11,7 +11,7 @@ public class Piece {
 
 
     private boolean used;
-    private int prob;
+    private int probability;
 
 
     public Piece() {
@@ -20,7 +20,7 @@ public class Piece {
         this.downSide = -1;
         this.leftSide = -1;
         this.used = false;
-        this.prob = 0;
+        this.probability = 0;
     }
 
     public Piece(int upperSide, int rightSide, int downSide, int leftSide, boolean used) {
@@ -29,7 +29,7 @@ public class Piece {
         setDownSide(downSide);
         setLeftSide(leftSide);
         this.used = used;
-        this.prob = 0;
+        this.probability = 0;
     }
 
     public boolean hasMatch(int valueUp, int valueLeft) {
@@ -68,13 +68,21 @@ public class Piece {
             this.leftSide = RandGenerator.randInt(0, MAX_NUM);
     }
 
+    public void setProbability(int probability) {
+        this.probability += probability;
+    }
+
+    public void resetProbability() {
+        this.probability = 0;
+    }
+
     //set true used
-    public void setTrue(){
+    public void setUsed(){
         this.used = true;
     }
 
     //set false used
-    public void setFalse(){
+    public void setUnused(){
         this.used = false;
     }
 
