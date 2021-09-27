@@ -8,6 +8,7 @@ public class Main {
 
         Puzzle obj = new Puzzle();
 
+
         obj.fillPuzzle();
         System.out.println("\nPuzzle");
         obj.printPuzzle();
@@ -20,6 +21,10 @@ public class Main {
         //obj.bruteForce(0,0);
         //obj.printBruteForce();
 
+        PuzzleResolver asd = new PuzzleResolver();
+        asd.fillUnsignedPieces(obj);
+        asd.updateCountPieces();
+        asd.printUnsignedPieces();
 
 
     }
