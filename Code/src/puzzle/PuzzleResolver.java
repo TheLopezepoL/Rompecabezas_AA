@@ -130,15 +130,17 @@ public class PuzzleResolver {
     // Este algoritmo crea una probabilidad segun countPieces con la formula que escribi
     public void setProbs() {
         for (int i = 0; i < Piece.MAX_NUM; i++) {   // Este for es para sacar la prob de las piezas con i
-            int probUp; int probLeft;
-            probUp = ((countPieces[0][i] - countPieces[3][i]) / (2 * Puzzle.SIZE * Puzzle.SIZE)) * 100;
-            probLeft = ((countPieces[2][i] - countPieces[1][i]) / (2 * Puzzle.SIZE * Puzzle.SIZE)) * 100;
+            double probUp; double probLeft;
+            probUp = (((double) countPieces[0][i] - (double) countPieces[3][i]) /
+                    (2 * (double) Puzzle.SIZE * (double) Puzzle.SIZE)) * 100;
+            probLeft = (((double) countPieces[2][i] - (double) countPieces[1][i]) /
+                    (2 * (double) Puzzle.SIZE * (double) Puzzle.SIZE)) * 100;
             for (Piece unsignedPiece : unsignedPieces) {    // Este for es para setear la prob sacada en el paso anterior a las piezas
                 if ((needUp == -1 || needUp == unsignedPiece.getUpperSide()) && (needLeft == -1 || needLeft == unsignedPiece.getLeftSide())) {
                     if (unsignedPiece.getUpperSide() == i)
-                        unsignedPiece.setProbability(probUp);
+                        unsignedPiece.setProbability((int) Math.round(probUp));
                     if (unsignedPiece.getLeftSide() == i)
-                        unsignedPiece.setProbability(probLeft);
+                        unsignedPiece.setProbability((int) Math.round(probLeft));
                 } else
                     unsignedPiece.resetProbability();
             }
