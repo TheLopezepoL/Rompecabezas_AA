@@ -92,6 +92,10 @@ public class Puzzle {
         return false;
    }
 
+   public void setPiece(int y, int x, Piece piece) {
+        if (x < SIZE && y < SIZE)
+            this.puzzle[y][x] = piece;
+   }
 
     // Print del puzzle
     public void printBruteForce() {
@@ -102,7 +106,6 @@ public class Puzzle {
                     System.out.print('\n');
             }
         }
-
     }
 
 

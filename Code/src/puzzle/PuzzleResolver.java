@@ -1,6 +1,7 @@
 package puzzle;
 
 import basics.Piece;
+import basics.RandGenerator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -152,17 +153,47 @@ public class PuzzleResolver {
             unsignedPiece.resetProbability();
     }
 
+    // Este algoritmo calcula cual es el rango para tirar el random
+    public int getMaxPorb() {
+        int maxProb = 0;
+        for (Piece unsignedPiece : unsignedPieces) {
+            if (unsignedPiece.getProbability() > 0) {
+                maxProb += unsignedPiece.getProbability();
+            }
+        }
+        return maxProb;
+    }
+
+    // Este algoritmo se encarga de elegir una pieza que tenga probabilidad
+    public Piece selectPiece(int pMaxProb) {
+        Piece pieceToPlace = null;
+        int actualProb = 0;
+        int random = RandGenerator.randInt(1, pMaxProb);
+        for (int piece = 0; piece < unsignedPieces.size(); piece++) {
+            if (unsignedPieces.get(piece).getProbability() > 0) {
+                if (actualProb < random && random <= actualProb + unsignedPieces.get(piece).getProbability()) {
+                    pieceToPlace = unsignedPieces.remove(piece);
+                    break;
+                } else
+                    actualProb += unsignedPieces.get(piece).getProbability();
+            }
+        }
+        return pieceToPlace;
+    }
+
     public void solvePuzzle() {
-        // while (unasihgnedPieces > size) // Falta incrementar los ptr
-        // update count pieces // LISTO
-        // set mandatory numbers // LISTO
-        // update probs // LISTO
-        // pick a piece
+        // while (unasihgnedPieces > size) // LISTO
+            // update count pieces // LISTO
+            // set mandatory numbers // LISTO
+            // update probs // LISTO
+            // pick a piece // LISTO
+            // place the piece // LISTO
         int ptrNextPieceX = 0;
         int ptrNextPieceY = 0;
-        while (unsignedPieces.size() > 0 && ptrNextPieceX * ptrNextPieceY <= Piece.MAX_NUM * Piece.MAX_NUM) {
+        while (unsignedPieces.size() > 0 && ptrNextPieceX < Puzzle.SIZE && ptrNextPieceY < Puzzle.SIZE) {
             updateCountPieces();
-            Piece actualPiece;
+
+            Piece actualPiece;  // Esta parte determina las conexiones obligatorias
             if (ptrNextPieceX == 0)
                 needLeft = -1;
             else {
@@ -175,10 +206,26 @@ public class PuzzleResolver {
                 actualPiece = puzzle.getPuzzle()[ptrNextPieceY - 1][ptrNextPieceX];
                 needUp = actualPiece.getDownSide();
             }
+
             setProbs();
+
+            int maxProb = getMaxPorb(); // Si este numero es 0 no se puede colocar ninguna pieza - Falta agregar el backtracking
+
+            if (maxProb != 0) {
+                Piece pieceToPlace = selectPiece(maxProb);
+                this.puzzle.setPiece(ptrNextPieceY, ptrNextPieceX, pieceToPlace);
+            } else
+                this.puzzle.setPiece(ptrNextPieceY, ptrNextPieceX, new Piece());
+
+            if (ptrNextPieceX == Puzzle.SIZE - 1) {
+                ptrNextPieceX = 0;
+                ptrNextPieceY += 1;
+            } else
+                ptrNextPieceX += 1;
         }
     }
 
-
-
+    public Puzzle getPuzzle() {
+        return puzzle;
+    }
 }

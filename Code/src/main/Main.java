@@ -23,9 +23,7 @@ public class Main {
 
         PuzzleResolver asd = new PuzzleResolver();
         asd.fillUnsignedPieces(obj);
-        asd.updateCountPieces();
-        asd.printCountPieces();
-
-
+        asd.solvePuzzle();
+        asd.getPuzzle().printPuzzle();
     }
 }

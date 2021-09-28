@@ -76,6 +76,10 @@ public class Piece {
         this.probability = 0;
     }
 
+    public int getProbability() {
+        return probability;
+    }
+
     //set true used
     public void setUsed(){
         this.used = true;
