@@ -39,8 +39,7 @@ public class Puzzle {
         Piece[][] tempPuzzle = new Piece[SIZE][SIZE];
         for (int column = 0; column < SIZE; column++) {
             for (int row = 0; row < SIZE; row++) {
-                int x;
-                int y;
+                int x; int y;
                 do {
                     x = RandGenerator.randInt(0, SIZE-1);
                     y = RandGenerator.randInt(0, SIZE-1);

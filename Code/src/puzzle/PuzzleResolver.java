@@ -153,11 +153,30 @@ public class PuzzleResolver {
     }
 
     public void solvePuzzle() {
-        // while (unasihgnedPieces > size)
-        // update count pieces
-        // set mandatory numbers
-        // update probs
+        // while (unasihgnedPieces > size) // Falta incrementar los ptr
+        // update count pieces // LISTO
+        // set mandatory numbers // LISTO
+        // update probs // LISTO
         // pick a piece
+        int ptrNextPieceX = 0;
+        int ptrNextPieceY = 0;
+        while (unsignedPieces.size() > 0 && ptrNextPieceX * ptrNextPieceY <= Piece.MAX_NUM * Piece.MAX_NUM) {
+            updateCountPieces();
+            Piece actualPiece;
+            if (ptrNextPieceX == 0)
+                needLeft = -1;
+            else {
+                actualPiece = puzzle.getPuzzle()[ptrNextPieceY][ptrNextPieceX - 1];
+                needLeft = actualPiece.getRightSide();
+            }
+            if (ptrNextPieceY == 0)
+                needUp = -1;
+            else {
+                actualPiece = puzzle.getPuzzle()[ptrNextPieceY - 1][ptrNextPieceX];
+                needUp = actualPiece.getDownSide();
+            }
+            setProbs();
+        }
     }
 
 
