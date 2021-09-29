@@ -223,7 +223,7 @@ public class PuzzleResolver {
         // update probs
         // pick a piece
         // place the piece
-    public void solvePuzzle() {
+    /*public void solvePuzzle() {
         resetProbs();
         int[] coordinates = getFirstEmptySpace();
         if (coordinates != null) {
@@ -238,8 +238,35 @@ public class PuzzleResolver {
                 returnPieceToArray(coordinates[0], coordinates[1] - 1);
                 returnPieceToArray(coordinates[0] - 1, coordinates[1]);
             }
-            solvePuzzle();
+            solvePuzzle2();
         }
+    }*/
+
+    public boolean solvePuzzle(){
+        int repetitions = 0;
+        int cantBeResolved = 0;
+        while (getFirstEmptySpace() != null && cantBeResolved < 20000000) {
+            resetProbs();
+            int[] coordinates = getFirstEmptySpace();
+            updateCountPieces();
+            setNeeds(coordinates[0], coordinates[1]);
+            setProbs();
+            int maxProb = getMaxPorb(); // Si este número es 0 no se puede colocar ninguna pieza
+            if (maxProb > 0) {
+                Piece pieceToPlace = selectPiece(maxProb);
+                this.puzzle.setPiece(coordinates[0], coordinates[1], pieceToPlace);
+            } else {
+                repetitions++;
+                for (int i = 0; i <= repetitions; i++) {
+                    returnPieceToArray(coordinates[0], coordinates[1] - i);
+                    returnPieceToArray(coordinates[0] - i, coordinates[1]);
+                }
+                if (repetitions > Puzzle.SIZE)
+                    repetitions = 0;
+            }
+            cantBeResolved++;
+        }
+        return cantBeResolved < 20000000;
     }
 
     public Puzzle getPuzzle() {

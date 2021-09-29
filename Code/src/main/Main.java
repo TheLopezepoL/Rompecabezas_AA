@@ -21,9 +21,13 @@ public class Main {
         //obj.bruteForce(0,0);
         //obj.printBruteForce();
 
+        System.out.println("\nAlgoritmo Probabilistico");
         PuzzleResolver asd = new PuzzleResolver();
         asd.fillUnsignedPieces(obj);
-        asd.solvePuzzle();
-        asd.getPuzzle().printPuzzle();
+        if (asd.solvePuzzle())
+            asd.getPuzzle().printPuzzle();
+        else
+            System.out.println("No se pudo resolver");
+
     }
 }
