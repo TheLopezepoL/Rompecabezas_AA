@@ -148,6 +148,7 @@ public class PuzzleResolver {
         }
     }
 
+    // Este algoritmo setea todas las probabilidades de la lista en 0
     public void resetProbs() {
         for (Piece unsignedPiece : unsignedPieces)
             unsignedPiece.resetProbability();
@@ -181,47 +182,63 @@ public class PuzzleResolver {
         return pieceToPlace;
     }
 
+    // Este algoritmo determina las conexiones obligatorias
+    public void setNeeds(int coordinateY, int ccordinateX){
+        Piece actualPiece;  // Esta parte determina las conexiones obligatorias
+        if (ccordinateX == 0)
+            needLeft = -1;
+        else {
+            actualPiece = puzzle.getPuzzle()[coordinateY][ccordinateX - 1];
+            needLeft = actualPiece.getRightSide();
+        }
+        if (coordinateY == 0)
+            needUp = -1;
+        else {
+            actualPiece = puzzle.getPuzzle()[coordinateY - 1][ccordinateX];
+            needUp = actualPiece.getDownSide();
+        }
+    }
+
+    // Este algoritmo devuelve las coordenadas del primero espacio en nulo del rompecabezas
+    public int[] getFirstEmptySpace() {
+        for (int column = 0; column < Puzzle.SIZE; column++) {
+            for (int row = 0; row < Puzzle.SIZE; row++) {
+                if (puzzle.getPuzzle()[column][row] == null)
+                    return new int[]{column, row};
+            }
+        }
+        return null;
+    }
+
+    // Este algoritmo verifica y elimina una pieza del rompecabezas para guardarla en la lista
+    public void returnPieceToArray(int coordinateY, int coordinateX) {
+        Piece piece = puzzle.removePiece(coordinateY, coordinateX);
+        if (piece != null)
+            unsignedPieces.add(piece);
+    }
+
+    // while (unasihgnedPieces > size)
+        // update count pieces
+        // set mandatory numbers
+        // update probs
+        // pick a piece
+        // place the piece
     public void solvePuzzle() {
-        // while (unasihgnedPieces > size) // LISTO
-            // update count pieces // LISTO
-            // set mandatory numbers // LISTO
-            // update probs // LISTO
-            // pick a piece // LISTO
-            // place the piece // LISTO
-        int ptrNextPieceX = 0;
-        int ptrNextPieceY = 0;
-        while (unsignedPieces.size() > 0 && ptrNextPieceX < Puzzle.SIZE && ptrNextPieceY < Puzzle.SIZE) {
+        resetProbs();
+        int[] coordinates = getFirstEmptySpace();
+        if (coordinates != null) {
             updateCountPieces();
-
-            Piece actualPiece;  // Esta parte determina las conexiones obligatorias
-            if (ptrNextPieceX == 0)
-                needLeft = -1;
-            else {
-                actualPiece = puzzle.getPuzzle()[ptrNextPieceY][ptrNextPieceX - 1];
-                needLeft = actualPiece.getRightSide();
-            }
-            if (ptrNextPieceY == 0)
-                needUp = -1;
-            else {
-                actualPiece = puzzle.getPuzzle()[ptrNextPieceY - 1][ptrNextPieceX];
-                needUp = actualPiece.getDownSide();
-            }
-
+            setNeeds(coordinates[0], coordinates[1]);
             setProbs();
-
-            int maxProb = getMaxPorb(); // Si este numero es 0 no se puede colocar ninguna pieza - Falta agregar el backtracking
-
-            if (maxProb != 0) {
+            int maxProb = getMaxPorb(); // Si este número es 0 no se puede colocar ninguna pieza
+            if (maxProb > 0) {
                 Piece pieceToPlace = selectPiece(maxProb);
-                this.puzzle.setPiece(ptrNextPieceY, ptrNextPieceX, pieceToPlace);
-            } else
-                this.puzzle.setPiece(ptrNextPieceY, ptrNextPieceX, new Piece());
-
-            if (ptrNextPieceX == Puzzle.SIZE - 1) {
-                ptrNextPieceX = 0;
-                ptrNextPieceY += 1;
-            } else
-                ptrNextPieceX += 1;
+                this.puzzle.setPiece(coordinates[0], coordinates[1], pieceToPlace);
+            } else {
+                returnPieceToArray(coordinates[0], coordinates[1] - 1);
+                returnPieceToArray(coordinates[0] - 1, coordinates[1]);
+            }
+            solvePuzzle();
         }
     }
 

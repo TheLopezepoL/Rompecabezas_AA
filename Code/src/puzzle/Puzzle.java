@@ -108,6 +108,15 @@ public class Puzzle {
         }
     }
 
+    public Piece removePiece(int coordenateY, int coordenateX) {
+        Piece piece = null;
+        if (coordenateY >= 0 && coordenateX >= 0) {
+            piece = puzzle[coordenateY][coordenateX];
+            puzzle[coordenateY][coordenateX] = null;
+        }
+        return piece;
+    }
+
 
     // Print del puzzle
     public void printPuzzle() {
