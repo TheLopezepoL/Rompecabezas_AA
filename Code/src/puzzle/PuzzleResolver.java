@@ -142,8 +142,9 @@ public class PuzzleResolver {
                         unsignedPiece.setProbability((int) Math.round(probUp));
                     if (unsignedPiece.getLeftSide() == i)
                         unsignedPiece.setProbability((int) Math.round(probLeft));
-                } else
-                    unsignedPiece.resetProbability();
+                    if (unsignedPiece.getProbability() == 0 && (unsignedPiece.getUpperSide() == i || unsignedPiece.getLeftSide() == i))
+                        unsignedPiece.setProbability((int) Math.round((Math.abs(probUp + probLeft + 2))/ 2));
+                }
             }
         }
     }
@@ -158,9 +159,8 @@ public class PuzzleResolver {
     public int getMaxPorb() {
         int maxProb = 0;
         for (Piece unsignedPiece : unsignedPieces) {
-            if (unsignedPiece.getProbability() > 0) {
+            if (unsignedPiece.getProbability() > 0)
                 maxProb += unsignedPiece.getProbability();
-            }
         }
         return maxProb;
     }
@@ -242,15 +242,27 @@ public class PuzzleResolver {
         }
     }*/
 
+    public void resetCountPieces() {
+        for (int side = 0; side < 4; side++) {
+            for (int actualNum = 0; actualNum < Piece.MAX_NUM; actualNum++) {
+                countPieces[side][actualNum] = 0;
+            }
+        }
+    }
+
     public boolean solvePuzzle(){
         int repetitions = 0;
         int cantBeResolved = 0;
         while (getFirstEmptySpace() != null && cantBeResolved < 20000000) {
+
+            resetCountPieces();
             resetProbs();
+
             int[] coordinates = getFirstEmptySpace();
             updateCountPieces();
             setNeeds(coordinates[0], coordinates[1]);
             setProbs();
+
             int maxProb = getMaxPorb(); // Si este número es 0 no se puede colocar ninguna pieza
             if (maxProb > 0) {
                 Piece pieceToPlace = selectPiece(maxProb);
