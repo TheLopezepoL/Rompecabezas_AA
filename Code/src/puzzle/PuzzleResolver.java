@@ -8,6 +8,8 @@ import java.util.Arrays;
 
 public class PuzzleResolver {
 
+    public static double MAX_REPS = Math.pow((double) Puzzle.SIZE, 5);
+
     private final ArrayList<Piece> unsignedPieces = new ArrayList<>();
     private final Puzzle puzzle = new Puzzle();
     private int[][] countPieces;
@@ -253,7 +255,7 @@ public class PuzzleResolver {
     public boolean solvePuzzle(){
         int repetitions = 0;
         int cantBeResolved = 0;
-        while (getFirstEmptySpace() != null && cantBeResolved < 20000000) {
+        while (getFirstEmptySpace() != null && cantBeResolved < MAX_REPS) {
 
             resetCountPieces();
             resetProbs();
@@ -278,7 +280,7 @@ public class PuzzleResolver {
             }
             cantBeResolved++;
         }
-        return cantBeResolved < 20000000;
+        return cantBeResolved < MAX_REPS;
     }
 
     public Puzzle getPuzzle() {

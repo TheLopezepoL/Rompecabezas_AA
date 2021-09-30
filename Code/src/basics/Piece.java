@@ -2,7 +2,7 @@ package basics;
 
 public class Piece {
     // Fija el numero mayor que puede tener una cara de la pieza (del 0 al 9)
-    public static final int MAX_NUM = 9;
+    public static final int MAX_NUM = 15;
 
     private int upperSide;
     private int rightSide;
