@@ -30,8 +30,10 @@ public class Main {
             System.out.println("Intento: " + intento);
             PuzzleResolver asd = new PuzzleResolver();
             asd.fillUnsignedPieces(obj);
-            if (asd.solvePuzzle())
+            if (asd.solvePuzzle()) {
                 asd.getPuzzle().printPuzzle();
+                break;
+            }
             else
                 System.out.println("No se pudo resolver");
         }
