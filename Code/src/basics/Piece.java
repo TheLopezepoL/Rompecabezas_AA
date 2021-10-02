@@ -36,12 +36,46 @@ public class Piece {
         return ((valueUp == -1 || upperSide == valueUp) && (valueLeft == -1 || leftSide == valueLeft));
     }
 
+    public void resetProbability() {
+        this.probability = 0;
+    }
+
+    public int getProbability() {
+        return probability;
+    }
+
+    public void setProbability(int probability) {
+        this.probability += probability;
+    }
+
+    //set true used
+    public void setUsed() {
+        this.used = true;
+    }
+
+    //set false used
+    public void setUnused() {
+        this.used = false;
+    }
+
+    public boolean getUsed() {
+        return used;
+    }
+
+    public int getUpperSide() {
+        return upperSide;
+    }
+
     // Si recibe un -1 se le asignara un random, caso contrario se asigna el valor indicado.
     private void setUpperSide(int upperSide) {
         if (upperSide != -1)
             this.upperSide = upperSide;
         else
             this.upperSide = RandGenerator.randInt(0, MAX_NUM);
+    }
+
+    public int getRightSide() {
+        return rightSide;
     }
 
     // Si recibe un -1 se le asignara un random, caso contrario se asigna el valor indicado.
@@ -52,12 +86,20 @@ public class Piece {
             this.rightSide = RandGenerator.randInt(0, MAX_NUM);
     }
 
+    public int getDownSide() {
+        return downSide;
+    }
+
     // Si recibe un -1 se le asignara un random, caso contrario se asigna el valor indicado.
     private void setDownSide(int downSide) {
         if (downSide != -1)
             this.downSide = downSide;
         else
             this.downSide = RandGenerator.randInt(0, MAX_NUM);
+    }
+
+    public int getLeftSide() {
+        return leftSide;
     }
 
     // Si recibe un -1 se le asignara un random, caso contrario se asigna el valor indicado.
@@ -68,49 +110,7 @@ public class Piece {
             this.leftSide = RandGenerator.randInt(0, MAX_NUM);
     }
 
-    public void setProbability(int probability) {
-        this.probability += probability;
-    }
-
-    public void resetProbability() {
-        this.probability = 0;
-    }
-
-    public int getProbability() {
-        return probability;
-    }
-
-    //set true used
-    public void setUsed(){
-        this.used = true;
-    }
-
-    //set false used
-    public void setUnused(){
-        this.used = false;
-    }
-
-    public boolean getUsed(){
-        return used;
-    }
-
-    public int getUpperSide() {
-        return upperSide;
-    }
-
-    public int getRightSide() {
-        return rightSide;
-    }
-
-    public int getDownSide() {
-        return downSide;
-    }
-
-    public int getLeftSide() {
-        return leftSide;
-    }
-
-    public int[] getSides(){
+    public int[] getSides() {
         return new int[]{getUpperSide(), getRightSide(), getDownSide(), getLeftSide()};
     }
 }

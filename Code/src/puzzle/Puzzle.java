@@ -1,6 +1,8 @@
 package puzzle;
 
-import basics.*;
+import basics.Piece;
+import basics.RandGenerator;
+
 import java.util.Arrays;
 
 public class Puzzle {
@@ -8,7 +10,7 @@ public class Puzzle {
     public static final int SIZE = 3;
 
     private Piece[][] puzzle;
-    private Piece[][] bruteForceSolve;
+    private final Piece[][] bruteForceSolve;
 
     public Puzzle() {
         this.puzzle = new Piece[SIZE][SIZE];
@@ -39,10 +41,11 @@ public class Puzzle {
         Piece[][] tempPuzzle = new Piece[SIZE][SIZE];
         for (int column = 0; column < SIZE; column++) {
             for (int row = 0; row < SIZE; row++) {
-                int x; int y;
+                int x;
+                int y;
                 do {
-                    x = RandGenerator.randInt(0, SIZE-1);
-                    y = RandGenerator.randInt(0, SIZE-1);
+                    x = RandGenerator.randInt(0, SIZE - 1);
+                    y = RandGenerator.randInt(0, SIZE - 1);
                 } while (tempPuzzle[y][x] != null);
                 tempPuzzle[y][x] = puzzle[column][row];
             }
@@ -52,19 +55,18 @@ public class Puzzle {
 
 
     //Ordenar puzzle bruteForce
-   public boolean bruteForce(int x, int y){
+    public boolean bruteForce(int x, int y) {
         //
         if (y == SIZE) {
 
             return true;
-        }
-        else {
+        } else {
             for (int column = 0; column < SIZE; column++) {
                 for (int row = 0; row < SIZE; row++) {
                     if (puzzle[column][row].getUsed() == false) {
 
-                        if ( ((x == 0) || (bruteForceSolve[x - 1][y].getRightSide() == puzzle[column][row].getLeftSide()) ) &&
-                                ((y == 0) || (bruteForceSolve[x][y - 1].getDownSide() == puzzle[column][row].getUpperSide() ))) {
+                        if (((x == 0) || (bruteForceSolve[x - 1][y].getRightSide() == puzzle[column][row].getLeftSide())) &&
+                                ((y == 0) || (bruteForceSolve[x][y - 1].getDownSide() == puzzle[column][row].getUpperSide()))) {
 
                             bruteForceSolve[x][y] = puzzle[column][row];
                             puzzle[column][row].setUsed();
@@ -80,7 +82,7 @@ public class Puzzle {
                                 new_x = 0;
                                 new_y++;
                             }
-                            if ( bruteForce(new_x, new_y) ) {
+                            if (bruteForce(new_x, new_y)) {
                                 return true;
                             }
                             puzzle[column][row].setUnused();
@@ -90,12 +92,12 @@ public class Puzzle {
             }
         }
         return false;
-   }
+    }
 
-   public void setPiece(int y, int x, Piece piece) {
+    public void setPiece(int y, int x, Piece piece) {
         if (x < SIZE && y < SIZE)
             this.puzzle[y][x] = piece;
-   }
+    }
 
     // Print del puzzle
     public void printBruteForce() {

@@ -219,31 +219,6 @@ public class PuzzleResolver {
             unsignedPieces.add(piece);
     }
 
-    // while (unasihgnedPieces > size)
-        // update count pieces
-        // set mandatory numbers
-        // update probs
-        // pick a piece
-        // place the piece
-    /*public void solvePuzzle() {
-        resetProbs();
-        int[] coordinates = getFirstEmptySpace();
-        if (coordinates != null) {
-            updateCountPieces();
-            setNeeds(coordinates[0], coordinates[1]);
-            setProbs();
-            int maxProb = getMaxPorb(); // Si este número es 0 no se puede colocar ninguna pieza
-            if (maxProb > 0) {
-                Piece pieceToPlace = selectPiece(maxProb);
-                this.puzzle.setPiece(coordinates[0], coordinates[1], pieceToPlace);
-            } else {
-                returnPieceToArray(coordinates[0], coordinates[1] - 1);
-                returnPieceToArray(coordinates[0] - 1, coordinates[1]);
-            }
-            solvePuzzle2();
-        }
-    }*/
-
     public void resetCountPieces() {
         for (int side = 0; side < 4; side++) {
             for (int actualNum = 0; actualNum < Piece.MAX_NUM; actualNum++) {

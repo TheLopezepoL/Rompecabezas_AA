@@ -18,7 +18,7 @@ public class Main {
         obj.printPuzzle();
 
         System.out.println("\nBrute force");
-        obj.bruteForce(0,0);
+        obj.bruteForce(0, 0);
         obj.printBruteForce();
 
         obj.shufflePuzzle();
@@ -33,8 +33,7 @@ public class Main {
             if (asd.solvePuzzle()) {
                 asd.getPuzzle().printPuzzle();
                 break;
-            }
-            else
+            } else
                 System.out.println("No se pudo resolver");
         }
     }
