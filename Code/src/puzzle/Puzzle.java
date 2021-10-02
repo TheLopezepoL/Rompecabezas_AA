@@ -5,18 +5,16 @@ import basics.RandGenerator;
 
 import java.util.Arrays;
 
-public class Puzzle{
+public class Puzzle {
     // Tamaño de la matriz (5x5)
     public static final int SIZE = 3;
     public static long a_BruteForce;
     public static long c_BruteForce;
-
-    private Piece[][] puzzle;
     private final Piece[][] bruteForceSolve;
+    private Piece[][] puzzle;
 
 
-
-    public Puzzle(){
+    public Puzzle() {
         this.puzzle = new Piece[SIZE][SIZE];
         this.bruteForceSolve = new Piece[SIZE][SIZE];
     }
@@ -58,9 +56,9 @@ public class Puzzle{
     }
 
     //Ordenar puzzle metodo bruteForce
-    public boolean bruteForce(int x, int y){
+    public boolean bruteForce(int x, int y) {
         c_BruteForce++; //1 comparison: true or false if
-         if(y == SIZE) {
+        if (y == SIZE) {
             return true;
         } else {
             a_BruteForce++; //1 assignment: for initialization
@@ -75,8 +73,8 @@ public class Puzzle{
                     if (!puzzle[column][row].getUsed()) {
 
                         c_BruteForce++; //1 comparison: true or false if
-                        if ( ((x == 0) || (bruteForceSolve[x - 1][y].getRightSide() == puzzle[column][row].getLeftSide()) ) &&
-                                ((y == 0) || (bruteForceSolve[x][y - 1].getDownSide() == puzzle[column][row].getUpperSide() ))) {
+                        if (((x == 0) || (bruteForceSolve[x - 1][y].getRightSide() == puzzle[column][row].getLeftSide())) &&
+                                ((y == 0) || (bruteForceSolve[x][y - 1].getDownSide() == puzzle[column][row].getUpperSide()))) {
 
                             bruteForceSolve[x][y] = puzzle[column][row];
                             // used piece
@@ -96,7 +94,7 @@ public class Puzzle{
                             }
 
                             c_BruteForce++; //1 comparison: true or false if
-                            if ( bruteForce(new_x, new_y) ) {
+                            if (bruteForce(new_x, new_y)) {
                                 return true;
                             }
 
@@ -115,14 +113,10 @@ public class Puzzle{
         return false;
     }
 
-    public void setPiece(int y, int x, Piece piece) {
-        if (x < SIZE && y < SIZE)
-            this.puzzle[y][x] = piece;
-    }
     //imprimir asignaciones y comparaciones bruteForce
-    public void printAsigCompBF(){
-        System.out.println("\n Asignaciones: "+ a_BruteForce );
-        System.out.println("\n Comparaciones: "+ c_BruteForce );
+    public void printAsigCompBF() {
+        System.out.println("\n Asignaciones: " + a_BruteForce);
+        System.out.println("\n Comparaciones: " + c_BruteForce);
         long executedLines = a_BruteForce + c_BruteForce;
         System.out.println("\n Lineas ejecutadas: " + executedLines);
     }
@@ -139,13 +133,13 @@ public class Puzzle{
     }
 
     public void setPiece(int y, int x, Piece piece) {
-       PuzzleResolver increment = new PuzzleResolver();
-       increment.increaseCompFastForward(1); // incrementar comparaciones avance rapido
+        PuzzleResolver increment = new PuzzleResolver();
+        increment.increaseCompFastForward(1); // incrementar comparaciones avance rapido
         if (x < SIZE && y < SIZE) {
             this.puzzle[y][x] = piece;
             increment.increaseAsigFastForward(1); // incrementar asignaciones avance rapido
         }
-   }
+    }
 
     public Piece removePiece(int coordenateY, int coordenateX) {
         PuzzleResolver increment = new PuzzleResolver();
